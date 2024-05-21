@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\mainControllerIntervenants;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -28,6 +29,17 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+//---------------------------------------------------GUEST ROUTES---------------------------------------------------
+Route::get('/main', function () {return Inertia::render('Main/Index');});
+
+Route::get('/add-formulaire-entreprise',[mainControllerIntervenants::class, 'addIntervenants']);
+Route::get('/edit-formulaire-entreprise/{id}',[mainControllerIntervenants::class, 'editIntervenants']);
+
+Route::post('/create-formulaire-entreprise',[mainControllerIntervenants::class, 'createIntervenants']);
+Route::post('/update-formulaire-entreprise',[mainControllerIntervenants::class, 'createIntervenants']);
+
+
+//---------------------------------------------------GUEST ROUTES---------------------------------------------------
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
